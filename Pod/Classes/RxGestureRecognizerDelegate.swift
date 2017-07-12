@@ -21,14 +21,43 @@
 import RxSwift
 import RxCocoa
 
-final class PermissiveGestureRecognizerDelegate: NSObject, GestureRecognizerDelegate {
+public final class RxGestureRecognizerDelegate: NSObject, GestureRecognizerDelegate {
 
-    static let shared = PermissiveGestureRecognizerDelegate()
+    public struct SimultaneousRecognitionPolicy {
+        public typealias PolicyBody = (
+            _ gestureRecognizer: GestureRecognizer,
+            _ otherGestureRecognizer: GestureRecognizer
+        ) -> Bool
 
-    func gestureRecognizer(
+        fileprivate let policy: PolicyBody
+        private init(policy: @escaping PolicyBody) {
+            self.policy = policy
+        }
+
+        public static func custom(_ policy: @escaping PolicyBody)
+            -> SimultaneousRecognitionPolicy {
+            return .init(policy: policy)
+        }
+
+        public static var allow: SimultaneousRecognitionPolicy {
+            return .init { _ in true }
+        }
+
+        public static var forbid: SimultaneousRecognitionPolicy {
+            return .init { _ in false }
+        }
+    }
+
+    var simultaneousRecognitionPolicy: SimultaneousRecognitionPolicy = .allow
+    
+    public func gestureRecognizer(
         _ gestureRecognizer: GestureRecognizer,
         shouldRecognizeSimultaneouslyWith otherGestureRecognizer: GestureRecognizer
         ) -> Bool {
-        return true
+        return simultaneousRecognitionPolicy.policy(
+            gestureRecognizer,
+            otherGestureRecognizer
+        )
     }
+
 }
