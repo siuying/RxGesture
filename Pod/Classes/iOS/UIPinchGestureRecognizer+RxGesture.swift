@@ -21,11 +21,6 @@
 import RxSwift
 import RxCocoa
 
-/// Default values for `UIPinchGestureRecognizer` configuration
-private enum Defaults {
-    static var configuration: ((UIPinchGestureRecognizer) -> Void)? = nil
-}
-
 /// A `GestureRecognizerFactory` for `UIPinchGestureRecognizer`
 public struct PinchGestureRecognizerFactory: GestureRecognizerFactory {
     public typealias Gesture = UIPinchGestureRecognizer
@@ -36,7 +31,7 @@ public struct PinchGestureRecognizerFactory: GestureRecognizerFactory {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public init(
-        configuration: ((UIPinchGestureRecognizer) -> Void)? = Defaults.configuration
+        configuration: ((UIPinchGestureRecognizer) -> Void)? = nil
         ){
         self.configuration = configuration ?? { _ in }
     }
@@ -49,7 +44,7 @@ extension AnyGestureRecognizerFactory {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public static func pinch(
-        configuration: ((UIPinchGestureRecognizer) -> Void)? = Defaults.configuration
+        configuration: ((UIPinchGestureRecognizer) -> Void)? = nil
         ) -> AnyGestureRecognizerFactory {
         let gesture = PinchGestureRecognizerFactory(
             configuration: configuration
@@ -65,7 +60,7 @@ public extension Reactive where Base: UIView {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public func pinchGesture(
-        configuration: ((UIPinchGestureRecognizer) -> Void)? = Defaults.configuration
+        configuration: ((UIPinchGestureRecognizer) -> Void)? = nil
         ) -> ControlEvent<UIPinchGestureRecognizer> {
 
         return gesture(PinchGestureRecognizerFactory(

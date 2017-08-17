@@ -253,7 +253,7 @@
 					};
 					F4CC4C1C1DEBA895009ED835 = {
 						CreatedOnToolsVersion = 8.1;
-						LastSwiftMigration = 0820;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Manual;
 					};
 				};
@@ -502,7 +502,8 @@
 				PRODUCT_NAME = RxGesture;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -524,7 +525,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = RxSwiftCommunity.RxGesture;
 				PRODUCT_NAME = RxGesture;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
